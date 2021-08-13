@@ -47,13 +47,10 @@ exports.getOneStudent = async (req, res) => {
 exports.getStudents = async (req, res) => {
   //extraer id del grupo
   const groupId = req.params.id;
-  const { partial, avr } = req.query;
+  //const { partial, avr } = req.query;
   try {
     const students = await Student.find({ group: groupId })
-      .select(
-        `_id
-       name fatherLastname motherLastname group ${partial} ${avr}`
-      )
+      .select("-group -createdAt -updatedAt")
       .sort({
         fatherLastname: 1,
         motherLastname: 1,
